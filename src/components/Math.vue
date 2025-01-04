@@ -61,7 +61,9 @@
     class="sidebar"
     :class="{ answering: !isAnsweringEnded, grading: isAnsweringEnded }"
   >
-    <p>{{ isAnsweringEnded ? '採点中' : '回答中' }}</p>
+    <!-- <p>{{ isAnsweringEnded ? '採点中()' : '回答中' }}</p> -->
+     <p v-if="isAnsweringEnded">採点中<br>(回答を変更できません)</p>
+      <p v-else>回答中</p>
     <div>
       <!-- ボタン -->
       <button
@@ -271,7 +273,7 @@ button:disabled {
   position: fixed;
   top: 20px;
   left: 20px;
-  width: 160px;
+  width: 180px;
   padding: 20px;
   background-color: #f1f1f1;
   border-radius: 8px;
