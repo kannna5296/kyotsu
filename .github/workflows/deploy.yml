@@ -6,7 +6,7 @@ on:
       - main  # mainブランチが更新された場合に実行
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -30,7 +30,20 @@ jobs:
 
       # 5. GitHub Pages用にビルド成果物をデプロイ
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+        uses: actions/upload-pages-artifact@v1
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }} # GitHub Actionsが提供するトークン
-          publish_dir: ./dist # ビルド成果物のディレクトリを指定
+          path: build
+ 
+  deploy:
+    needs: build
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v1
