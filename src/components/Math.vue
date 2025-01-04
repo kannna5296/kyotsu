@@ -80,6 +80,18 @@
       </button>
     </div>
   </div>
+
+  <p class="author">
+    作成者: 
+    <a href="https://x.com/hiro_cashless" target="_blank" rel="noopener noreferrer">
+      <i class="fa-brands fa-x-twitter"></i> @hiro_cashless
+    </a>
+    <span> | </span>
+    <a href="https://github.com/kannna5296" target="_blank" rel="noopener noreferrer">
+      <i class="fab fa-github"></i> GitHub
+    </a>
+  </p>
+
 </template>
 
 <script setup lang="ts">
@@ -281,4 +293,25 @@ button:disabled {
 .sidebar.grading {
   background-color: #f06292; /* さらに濃い赤（採点中） */
 }
+
+/* 作成者情報のスタイル */
+.author {
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+.author a {
+  color: #333;
+  text-decoration: none;
+  margin: 0 5px;
+}
+
+.author a:hover {
+  text-decoration: underline;
+}
+
+.author i {
+  margin-right: 5px;
+}
+
 </style>
