@@ -259,7 +259,7 @@ button:disabled {
   position: fixed;
   top: 20px;
   left: 20px;
-  width: 150px;
+  width: 200px;
   padding: 20px;
   background-color: #f1f1f1;
   border-radius: 8px;
