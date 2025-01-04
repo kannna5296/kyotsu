@@ -5,6 +5,6 @@ import vue from '@vitejs/plugin-vue'
 export default defineConfig({
   plugins: [vue()],
   build: {
-    outDir: 'docs',  // ビルド成果物をdocsフォルダに出力
+    outDir: 'dist',  // ビルド成果物をdocsフォルダに出力
   },
 })
