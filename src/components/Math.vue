@@ -61,7 +61,6 @@
     class="sidebar"
     :class="{ answering: !isAnsweringEnded, grading: isAnsweringEnded }"
   >
-    <!-- <p>{{ isAnsweringEnded ? '採点中()' : '回答中' }}</p> -->
      <p v-if="isAnsweringEnded">採点中<br>(回答を変更できません)</p>
       <p v-else>回答中</p>
     <div>
