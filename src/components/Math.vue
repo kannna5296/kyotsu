@@ -5,7 +5,7 @@
       模擬試験ブン回したいけど印刷するのがめんどくさい時に使ってください。<br>リロードすると消えちゃいます。
     </p>
     <div class="problem-grid">
-      <table>
+      <table class="answer-table">
         <thead>
           <tr>
             <th class="problem-column">
@@ -245,9 +245,16 @@ h1 {
   table-layout: fixed; /* セル幅を均等に */
 }
 
-table {
+.answer-table {
   border-collapse: collapse;
   width: 100%;
+  border: 4px solid black; /* テーブル全体の外枠を太く */
+  border-collapse: collapse; /* セル間の隙間をなくす */
+}
+
+.answer-table td, .answer-table th {
+  border: 1px solid black; /* 各セルの枠線を設定 */
+  text-align: center; /* テキストを中央揃え */
 }
 
 th,
