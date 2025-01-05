@@ -2,7 +2,7 @@
   <div class="container">
     <h1>共通テスト 数学回答用紙くん</h1>
     <p class="description">
-      共通テストの数学回答用紙です。<br>模擬試験ブン回したいけど印刷するのがめんどくさい時に使ってください。
+      模擬試験ブン回したいけど印刷するのがめんどくさい時に使ってください。<br>リロードすると消えちゃいます。
     </p>
     <div class="problem-grid">
       <table>
@@ -17,6 +17,7 @@
             >
               {{ option }}
             </th>
+            <th colspan="2">採点欄</th>
           </tr>
         </thead>
         <tbody>
@@ -108,13 +109,14 @@
 
   <p class="author">
     作成者: 
-    <a href="https://x.com/hiro_cashless" target="_blank" rel="noopener noreferrer">
-      <i class="fa-brands fa-x-twitter"></i> @hiro_cashless
-    </a>
-    <span> | </span>
     <a href="https://github.com/kannna5296" target="_blank" rel="noopener noreferrer">
       <i class="fab fa-github"></i> GitHub
     </a>
+    <span> | </span>
+    <a href="https://x.com/hiro_cashless" target="_blank" rel="noopener noreferrer">
+      <i class="fa-brands fa-x-twitter"></i> @hiro_cashless
+    </a>
+    ←ご意見、ご要望はXのリプライ,DMまでお願いします!
   </p>
 
 </template>
