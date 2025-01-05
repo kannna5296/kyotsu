@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h1>共通テスト 数学回答用紙くん</h1>
+    <h1>共通テスト 数学解答用紙くん</h1>
     <p class="description">
       模擬試験ブン回したいけど印刷するのがめんどくさい時に使ってください。<br>リロードすると消えちゃいます。
     </p>
@@ -78,10 +78,10 @@
     class="sidebar"
     :class="{ answering: !isAnsweringEnded, grading: isAnsweringEnded }"
   >
-     <p v-if="isAnsweringEnded">採点中<br>(回答を変更できません)</p>
-      <p v-else>回答中</p>
+     <p v-if="isAnsweringEnded">採点中<br>(解答を変更できません)</p>
+      <p v-else>解答中</p>
 
-      <p>回答した数: {{ answeredCount }}</p>
+      <p>解答した数: {{ answeredCount }}</p>
       <div v-if="isAnsweringEnded">
         <!-- 正答数 -->
         <p>正答数: {{ correctCount }}</p>
@@ -95,7 +95,7 @@
         class="end-button"
         @click="endAnswering"
       >
-        回答終了
+        解答終了
       </button>
       <button
         v-if="isAnsweringEnded"
@@ -137,7 +137,7 @@ const problems: string[] = [
 // ラジオボタンの選択肢を定義
 const options: string[] = ['-', '±', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 
-// 問題番号ごとの回答を管理（初期値は null）
+// 問題番号ごとの解答を管理（初期値は null）
 const answers = ref<Record<string, string | null>>(
   problems.reduce((acc, problem) => {
     acc[problem] = null; // 初期状態は選択なし
@@ -145,7 +145,7 @@ const answers = ref<Record<string, string | null>>(
   }, {} as Record<string, string | null>),
 );
 
-// 回答終了後に変更を無効化するフラグ
+//解答終了状態を表すフラグ
 const isAnsweringEnded = ref(false);
 
 // ラジオボタンをクリックした際の選択解除処理
@@ -155,14 +155,14 @@ function handleRadioClick(problem: string, option: string) {
   }
 }
 
-// 回答終了ボタンを押した際の処理
+// 解答終了ボタンを押した際の処理
 function endAnswering() {
-  isAnsweringEnded.value = true; // 回答終了状態にする
+  isAnsweringEnded.value = true; // 解答終了状態にする
 }
 
 // 次の試験に移るボタンを押した際の処理
 function nextExam() {
-  // 回答をリセット
+  // 解答をリセット
   for (const problem in answers.value) {
     answers.value[problem] = null;
   }
@@ -171,7 +171,7 @@ function nextExam() {
   for (const problem in correctAnswers.value) {
     correctAnswers.value[problem] = null;
   }
-  // 回答終了状態を解除
+  // 解答終了状態を解除
   isAnsweringEnded.value = false;
 }
 
@@ -204,7 +204,7 @@ function isIncorrect(problem: string): boolean {
   return correctAnswers.value[problem] === false;
 }
 
-// 回答した数
+//　解答した数
 const answeredCount = computed(() => {
   return Object.values(answers.value).filter((answer) => answer !== null).length;
 });
@@ -362,7 +362,7 @@ button:disabled {
   color: #333;
 }
 
-/* 回答中/採点中の背景色 */
+/* 解答中/採点中の背景色 */
 .sidebar.answering {
   background-color: #8bc34a; /* 緑っぽい */
 }
