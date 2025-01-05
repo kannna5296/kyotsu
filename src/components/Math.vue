@@ -1,5 +1,8 @@
 <template>
-  <div class="container">
+  <div v-if="isMobile" class="mobile-message">
+    ごめんなさい! <br>PCから開いてもらうようお願いします☺️
+  </div>
+  <div v-if="!isMobile" class="container">
     <h1>共通テスト 数学解答用紙くん</h1>
     <p class="description">
       模擬試験ブン回したいけど印刷するのがめんどくさい時に使ってください。<br>リロードすると消えちゃいます。
@@ -75,6 +78,7 @@
 
   <!-- サイドバー -->
   <div
+  v-if="!isMobile"
     class="sidebar"
     :class="{ answering: !isAnsweringEnded, grading: isAnsweringEnded }"
   >
@@ -107,7 +111,7 @@
     </div>
   </div>
 
-  <p class="author">
+  <p v-if="!isMobile" class="author">
     作成者: 
     <a href="https://github.com/kannna5296" target="_blank" rel="noopener noreferrer">
       <i class="fab fa-github"></i> GitHub
@@ -122,7 +126,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { ref, computed , onMounted, onUnmounted} from 'vue';
 
 // 問題番号を定義（「ア」から「ホ」まで）
 const problems: string[] = [
@@ -218,6 +222,22 @@ const correctCount = computed(() => {
 const correctRate = computed(() => {
   if (answeredCount.value === 0) return 0;
   return (correctCount.value / answeredCount.value) * 100;
+});
+
+
+const isMobile = ref(false);
+
+const checkDevice = () => {
+  isMobile.value = window.innerWidth < 769;
+};
+
+onMounted(() => {
+  checkDevice();
+  window.addEventListener('resize', checkDevice);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('resize', checkDevice);
 });
 </script>
 
@@ -404,6 +424,20 @@ button:disabled {
 
 .radio-cell.incorrect {
   background-color: #ffcdd2; /* 赤色 */
+}
+
+.mobile-message {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  text-align: center;
+  padding: 20px;
+  font-size: 18px;
+  z-index: 1000; /* 画面の上に表示 */
 }
 
 </style>
