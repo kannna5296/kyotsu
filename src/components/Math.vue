@@ -17,7 +17,7 @@
             >
               {{ option }}
             </th>
-            <th colspan="2">採点欄</th>
+            <th v-if="isAnsweringEnded" colspan="2">採点欄</th>
           </tr>
         </thead>
         <tbody>
