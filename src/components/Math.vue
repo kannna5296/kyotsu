@@ -79,6 +79,14 @@
   >
      <p v-if="isAnsweringEnded">採点中<br>(回答を変更できません)</p>
       <p v-else>回答中</p>
+
+      <p>回答した数: {{ answeredCount }}</p>
+      <div v-if="isAnsweringEnded">
+        <!-- 正答数 -->
+        <p>正答数: {{ correctCount }}</p>
+        <!-- 正答率 -->
+        <p>正答率: {{ correctRate.toFixed(2) }}%</p>
+      </div>
     <div>
       <!-- ボタン -->
       <button
@@ -112,7 +120,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 
 // 問題番号を定義（「ア」から「ホ」まで）
 const problems: string[] = [
@@ -193,6 +201,22 @@ function isCorrect(problem: string): boolean {
 function isIncorrect(problem: string): boolean {
   return correctAnswers.value[problem] === false;
 }
+
+// 回答した数
+const answeredCount = computed(() => {
+  return Object.values(answers.value).filter((answer) => answer !== null).length;
+});
+
+// 正答数
+const correctCount = computed(() => {
+  return Object.values(correctAnswers.value).filter((isCorrect) => isCorrect).length;
+});
+
+// 正答率
+const correctRate = computed(() => {
+  if (answeredCount.value === 0) return 0;
+  return (correctCount.value / answeredCount.value) * 100;
+});
 </script>
 
 <style scoped>
