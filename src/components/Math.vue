@@ -50,6 +50,22 @@
                 <span class="background-text">{{ option }}</span>
               </label>
             </td>
+            <td
+              v-if="isAnsweringEnded"
+              class="radio-cell"
+              :class="{ correct: isCorrect(problem) }"
+              @click="markAsCorrect(problem)"
+            >
+              ⚪︎
+            </td>
+            <td
+              v-if="isAnsweringEnded"
+              class="radio-cell"
+              :class="{ incorrect: isIncorrect(problem) }"
+              @click="markAsIncorrect(problem)"
+            >
+              ×
+            </td>
           </tr>
         </tbody>
       </table>
@@ -140,8 +156,42 @@ function nextExam() {
   for (const problem in answers.value) {
     answers.value[problem] = null;
   }
+
+  // 採点データをリセット
+  for (const problem in correctAnswers.value) {
+    correctAnswers.value[problem] = null;
+  }
   // 回答終了状態を解除
   isAnsweringEnded.value = false;
+}
+
+
+// 正解・不正解の状態を保持するためのデータ
+const correctAnswers = ref<Record<string, boolean | null>>(
+  problems.reduce((acc, problem) => {
+    acc[problem] = null; // 初期状態は未選択
+    return acc;
+  }, {} as Record<string, boolean | null>),
+);
+
+// 丸を押した際の処理
+function markAsCorrect(problem: string) {
+  correctAnswers.value[problem] = true; // 正解に設定
+}
+
+// 罰を押した際の処理
+function markAsIncorrect(problem: string) {
+  correctAnswers.value[problem] = false; // 不正解に設定
+}
+
+// 正解かどうかを判定
+function isCorrect(problem: string): boolean {
+  return correctAnswers.value[problem] === true;
+}
+
+// 不正解かどうかを判定
+function isIncorrect(problem: string): boolean {
+  return correctAnswers.value[problem] === false;
 }
 </script>
 
@@ -313,6 +363,14 @@ button:disabled {
 
 .author i {
   margin-right: 5px;
+}
+
+.radio-cell.correct {
+  background-color: #c8e6c9; /* 緑色 */
+}
+
+.radio-cell.incorrect {
+  background-color: #ffcdd2; /* 赤色 */
 }
 
 </style>
